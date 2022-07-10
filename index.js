@@ -1,4 +1,5 @@
 var readlineSync = require("readline-sync");
+var ansiColors = require("ansi-colors");
 
 highestScore = [
   {
@@ -6,7 +7,7 @@ highestScore = [
     score: "14"
   }
 ];
-console.log("\n HIGHSCORE \n ");
+console.log(ansiColors.yellow("\n HIGHSCORE \n "));
 console.table(highestScore);
 var maximum = highestScore[0].score;
 for (let i = 1; i < highestScore.length; i++) {
@@ -15,18 +16,18 @@ for (let i = 1; i < highestScore.length; i++) {
   }
 }
 
-var userName = readlineSync.question("May i know your name ?");
+var userName = readlineSync.question(ansiColors.blue("May i know your name ?"));
 
-var welcomeMessage = (" \n Welcome! " + userName + " to SHAKTIMANN QUIZ! \n");
+var welcomeMessage = (ansiColors.green(" \n Welcome! " + userName + " to SHAKTIMANN QUIZ! \n"));
 console.log(welcomeMessage);
 
-console.log(" \n Lets start the Shaktimann Quiz. \n ");
+console.log(ansiColors.magenta(" \n Lets start the Shaktimann Quiz. \n "));
 
 
-console.log("RULES !!! ");
-console.log("1.Total 9 questions are there , all questions are necessary to attempt.");
-console.log("2. If you give correct answer you will score +2 otherwise you will score -1.");
-console.log("3. You have to type the index value of the option selected.");
+console.log(ansiColors.red("RULES !!! "));
+console.log(ansiColors.red("1.Total 9 questions are there , all questions are necessary to attempt."));
+console.log(ansiColors.red("2. If you give correct answer you will score +2 otherwise you will score -1."));
+console.log(ansiColors.red("3. You have to type the index value of the option selected."));
 
 var questionList = [{
   question: ("QUESTION 1 :: Who is Shaktimaan ?"),
@@ -81,18 +82,18 @@ function Play(question, listOfQuestions, answer) {
   var userAnswer = readlineSync.keyInSelect(listOfQuestions, question);
   if (listOfQuestions[userAnswer] === answer) {
     score += 2;
-    console.log("Yay! your answer is correct , \n score:: " + score);
+    console.log(ansiColors.bold("Yay! your answer is correct , \n score:: ") + ansiColors.green(score));
   }
   else {
     score -= 1;
-    console.log("Your answer is wrong ! \n The answer is: " + answer + " \n Your score is :: " + score);
+    console.log(ansiColors.strikethrough("Your answer is wrong !") + ansiColors.green("\n the correct answer is: ") + ansiColors.green(answer) + " \n Your score is :: " + ansiColors.red(score));
   }
 
   if (score === 10) {
-    console.log(" \n congrats ! you are promoted to level 2 \n");
+    console.log(ansiColors.bgGreenBright(" \n congrats ! you are promoted to level 2 \n"));
   }
   else if (score === 6) {
-    console.log(" \n congrats ! you are promoted to level 1 \n");
+    console.log(ansiColors.bgCyanBright(" \n congrats ! you are promoted to level 1 \n"));
   }
 
 }
@@ -106,15 +107,15 @@ function game() {
 }
 
 function showScores() {
-  console.log("Congratulations ! " + userName + " \n Your total score is " + score + "!");
+  console.log("Congratulations ! " + ansiColors.magenta(userName) + " \n Your total score is " + ansiColors.greenBright(score) + "!");
 }
 
 game();
 showScores();
 
 if (score >= maximum) {
-  console.log("\n CONGRATS !! \n You pass the HIGH SCORE ! \n Please send me the screenshot of your result, i will update the score on the scoreboard. \n ");
+  console.log(ansiColors.bgYellowBright("\n CONGRATS !! \n You pass the HIGH SCORE ! \n Please send me the screenshot of your result, i will update the score on the scoreboard. \n "));
 }
 else {
-  console.log("\n You didn't pass the HIGHSCORE ! BETTER LUCK NEXT TIME. \n ");
+  console.log(ansiColors.bgRed("\n You didn't pass the HIGHSCORE ! BETTER LUCK NEXT TIME. \n "));
 }
